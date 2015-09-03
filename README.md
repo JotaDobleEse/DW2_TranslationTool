@@ -4,3 +4,5 @@ Herramienta para extraer y reinsertar los textos del juego Digimon World 2 de PS
 El código está escrito en C# bajo .NET Framework 4.5 en Visual Studio 2013.
 
 En los releases ya está disponible la primera versión (v0.9-beta), habrá que comprobar que todo funciona como es debido.
+
+Aquí se puede ver un texto reinsertado con la herramienta: https://www.youtube.com/watch?v=5lu8K2wV9X4
