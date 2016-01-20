@@ -11,8 +11,8 @@ namespace DW2_Extractor
         [STAThreadAttribute]
         static void Main(string[] args)
         {
-            //new DW2_Extractor().ShowDialog();
-            new TextEditor().ShowDialog();
+            new DW2_Extractor().ShowDialog();
+            //new TextEditor().ShowDialog();
             ////TableReader table_original = TableReader.Create("Tabla_original.tbl");
             //TableReader table_mod = TableReader.Create("Tabla.tbl");
 

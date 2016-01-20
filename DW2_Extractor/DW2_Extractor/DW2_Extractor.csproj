@@ -52,7 +52,7 @@
     </Compile>
     <Compile Include="Models\ItemData.cs" />
     <Compile Include="Models\DungMess.cs" />
-    <Compile Include="Models\Mess.cs" />
+    <Compile Include="Models\CityMess.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\SysMess.cs" />

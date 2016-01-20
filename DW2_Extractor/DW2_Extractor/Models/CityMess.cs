@@ -7,24 +7,25 @@ using System.Threading.Tasks;
 
 namespace DW2_Extractor
 {
-    public class Mess
+    public class CityMess
     {
+        public const string COMMAND = "psx-mode2.exe {2} \\AAA\\4.AAA\\CITY\\MESS\\{0} {1}\r\nPAUSE";
         private List<string> Dialogs;
         private List<byte[]> BlocksFile;
         private List<int[]> PointersPreData;
         private int[] Pointers;
         private TableReader ParserTable;
 
-        private Mess()
+        private CityMess()
         {
             Dialogs = new List<string>();
             BlocksFile = new List<byte[]>();
             PointersPreData = new List<int[]>();
         }
 
-        public static Mess OpenBin(string path, TableReader table)
+        public static CityMess OpenBin(string path, TableReader table)
         {
-            Mess result = new Mess() { ParserTable = table };
+            CityMess result = new CityMess() { ParserTable = table };
             result.readBin(path);
             return result;
         }

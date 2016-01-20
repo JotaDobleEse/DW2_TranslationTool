@@ -35,6 +35,7 @@
             this.openTblInsertion = new System.Windows.Forms.Button();
             this.tabPanel1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.generateAllBinDungMess = new System.Windows.Forms.Button();
             this.extractAllTxtFilesMess = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -59,19 +60,21 @@
             this.saveBinSysMess = new System.Windows.Forms.Button();
             this.openTxtSysMess = new System.Windows.Forms.Button();
             this.openBinSysMess = new System.Windows.Forms.Button();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.generateAllBinCityMess = new System.Windows.Forms.Button();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
             this.extractAllTxtCityMess = new System.Windows.Forms.Button();
             this.saveTxtCityMess = new System.Windows.Forms.Button();
             this.saveBinCityMess = new System.Windows.Forms.Button();
             this.openTxtCityMess = new System.Windows.Forms.Button();
             this.openBinCityMess = new System.Windows.Forms.Button();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.generateAllBinDungMess = new System.Windows.Forms.Button();
-            this.generateAllBinCityMess = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dw2Name = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabPanel1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -87,6 +90,7 @@
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -133,17 +137,17 @@
             this.tabPanel1.Controls.Add(this.tabPage3);
             this.tabPanel1.Controls.Add(this.tabPage4);
             this.tabPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tabPanel1.Location = new System.Drawing.Point(0, 47);
             this.tabPanel1.Name = "tabPanel1";
             this.tabPanel1.SelectedIndex = 0;
-            this.tabPanel1.Size = new System.Drawing.Size(521, 319);
+            this.tabPanel1.Size = new System.Drawing.Size(521, 272);
             this.tabPanel1.TabIndex = 1;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.generateAllBinDungMess);
             this.tabPage1.Controls.Add(this.extractAllTxtFilesMess);
-            this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.saveTxtMess);
             this.tabPage1.Controls.Add(this.saveBinMess);
             this.tabPage1.Controls.Add(this.openTxtMess);
@@ -151,10 +155,22 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(513, 290);
+            this.tabPage1.Size = new System.Drawing.Size(513, 243);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "DungMess";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // generateAllBinDungMess
+            // 
+            this.generateAllBinDungMess.Dock = System.Windows.Forms.DockStyle.Top;
+            this.generateAllBinDungMess.Enabled = false;
+            this.generateAllBinDungMess.Location = new System.Drawing.Point(3, 163);
+            this.generateAllBinDungMess.Name = "generateAllBinDungMess";
+            this.generateAllBinDungMess.Size = new System.Drawing.Size(507, 32);
+            this.generateAllBinDungMess.TabIndex = 8;
+            this.generateAllBinDungMess.Text = "Generate all BIN files";
+            this.generateAllBinDungMess.UseVisualStyleBackColor = true;
+            this.generateAllBinDungMess.Click += new System.EventHandler(this.generateAllBinDungMess_Click);
             // 
             // extractAllTxtFilesMess
             // 
@@ -172,9 +188,9 @@
             // 
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 131);
+            this.panel2.Location = new System.Drawing.Point(3, 195);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(507, 156);
+            this.panel2.Size = new System.Drawing.Size(507, 45);
             this.panel2.TabIndex = 6;
             // 
             // panel5
@@ -183,13 +199,13 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel5.Location = new System.Drawing.Point(399, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(108, 156);
+            this.panel5.Size = new System.Drawing.Size(108, 45);
             this.panel5.TabIndex = 0;
             // 
             // helpMess
             // 
             this.helpMess.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.helpMess.Location = new System.Drawing.Point(0, 121);
+            this.helpMess.Location = new System.Drawing.Point(0, 10);
             this.helpMess.Name = "helpMess";
             this.helpMess.Size = new System.Drawing.Size(108, 35);
             this.helpMess.TabIndex = 0;
@@ -453,6 +469,46 @@
             this.panel8.Size = new System.Drawing.Size(513, 290);
             this.panel8.TabIndex = 7;
             // 
+            // generateAllBinCityMess
+            // 
+            this.generateAllBinCityMess.Dock = System.Windows.Forms.DockStyle.Top;
+            this.generateAllBinCityMess.Enabled = false;
+            this.generateAllBinCityMess.Location = new System.Drawing.Point(0, 160);
+            this.generateAllBinCityMess.Name = "generateAllBinCityMess";
+            this.generateAllBinCityMess.Size = new System.Drawing.Size(513, 32);
+            this.generateAllBinCityMess.TabIndex = 14;
+            this.generateAllBinCityMess.Text = "Generate all BIN files";
+            this.generateAllBinCityMess.UseVisualStyleBackColor = true;
+            this.generateAllBinCityMess.Click += new System.EventHandler(this.generateAllBinCityMess_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.panel10);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(0, 160);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(513, 130);
+            this.panel9.TabIndex = 13;
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.button6);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel10.Location = new System.Drawing.Point(405, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(108, 130);
+            this.panel10.TabIndex = 0;
+            // 
+            // button6
+            // 
+            this.button6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button6.Location = new System.Drawing.Point(0, 95);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(108, 35);
+            this.button6.TabIndex = 0;
+            this.button6.Text = "Help";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
             // extractAllTxtCityMess
             // 
             this.extractAllTxtCityMess.Dock = System.Windows.Forms.DockStyle.Top;
@@ -513,57 +569,34 @@
             this.openBinCityMess.UseVisualStyleBackColor = true;
             this.openBinCityMess.Click += new System.EventHandler(this.openBinCityMess_Click);
             // 
-            // panel9
+            // flowLayoutPanel1
             // 
-            this.panel9.Controls.Add(this.panel10);
-            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(0, 160);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(513, 130);
-            this.panel9.TabIndex = 13;
+            this.flowLayoutPanel1.Controls.Add(this.label1);
+            this.flowLayoutPanel1.Controls.Add(this.dw2Name);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(521, 47);
+            this.flowLayoutPanel1.TabIndex = 2;
             // 
-            // panel10
+            // label1
             // 
-            this.panel10.Controls.Add(this.button6);
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel10.Location = new System.Drawing.Point(405, 0);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(108, 130);
-            this.panel10.TabIndex = 0;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 12);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 12, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(93, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Imagen DW2:";
             // 
-            // button6
+            // dw2Name
             // 
-            this.button6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button6.Location = new System.Drawing.Point(0, 95);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(108, 35);
-            this.button6.TabIndex = 0;
-            this.button6.Text = "Help";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // generateAllBinDungMess
-            // 
-            this.generateAllBinDungMess.Dock = System.Windows.Forms.DockStyle.Top;
-            this.generateAllBinDungMess.Enabled = false;
-            this.generateAllBinDungMess.Location = new System.Drawing.Point(3, 163);
-            this.generateAllBinDungMess.Name = "generateAllBinDungMess";
-            this.generateAllBinDungMess.Size = new System.Drawing.Size(507, 32);
-            this.generateAllBinDungMess.TabIndex = 8;
-            this.generateAllBinDungMess.Text = "Generate all BIN files";
-            this.generateAllBinDungMess.UseVisualStyleBackColor = true;
-            this.generateAllBinDungMess.Click += new System.EventHandler(this.generateAllBinDungMess_Click);
-            // 
-            // generateAllBinCityMess
-            // 
-            this.generateAllBinCityMess.Dock = System.Windows.Forms.DockStyle.Top;
-            this.generateAllBinCityMess.Enabled = false;
-            this.generateAllBinCityMess.Location = new System.Drawing.Point(0, 160);
-            this.generateAllBinCityMess.Name = "generateAllBinCityMess";
-            this.generateAllBinCityMess.Size = new System.Drawing.Size(513, 32);
-            this.generateAllBinCityMess.TabIndex = 14;
-            this.generateAllBinCityMess.Text = "Generate all BIN files";
-            this.generateAllBinCityMess.UseVisualStyleBackColor = true;
-            this.generateAllBinCityMess.Click += new System.EventHandler(this.generateAllBinCityMess_Click);
+            this.dw2Name.Location = new System.Drawing.Point(104, 10);
+            this.dw2Name.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.dw2Name.MaxLength = 250;
+            this.dw2Name.Name = "dw2Name";
+            this.dw2Name.Size = new System.Drawing.Size(300, 22);
+            this.dw2Name.TabIndex = 1;
             // 
             // DW2_Extractor
             // 
@@ -572,6 +605,7 @@
             this.ClientSize = new System.Drawing.Size(521, 386);
             this.Controls.Add(this.tabPanel1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "DW2_Extractor";
             this.Text = "DW2_Extractor";
             this.panel1.ResumeLayout(false);
@@ -589,6 +623,8 @@
             this.panel8.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -639,6 +675,9 @@
         private System.Windows.Forms.Button openBinCityMess;
         private System.Windows.Forms.Button generateAllBinDungMess;
         private System.Windows.Forms.Button generateAllBinCityMess;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox dw2Name;
 
     }
 }

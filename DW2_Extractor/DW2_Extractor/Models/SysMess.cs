@@ -9,6 +9,7 @@ namespace DW2_Extractor
 {
     public class SysMess
     {
+        public const string COMMAND = "psx-mode2.exe {0} \\AAA\\4.AAA\\COMMON\\SYS_MESS.BIN SYS_MESS.BIN\r\nPAUSE";
         private List<string> Messages;
         private List<byte[]> BlocksFile;
         private TableReader ParserTable;

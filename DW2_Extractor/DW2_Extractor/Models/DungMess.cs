@@ -9,6 +9,7 @@ namespace DW2_Extractor
 {
     public class DungMess
     {
+        public const string COMMAND = "psx-mode2.exe {2} \\AAA\\4.AAA\\DUNG\\MESS\\{0} {1}\r\nPAUSE";
         private List<string> Dialogs;
         private List<byte[]> BlocksFile;
         private List<int[]> PointersPreData;
@@ -36,6 +37,8 @@ namespace DW2_Extractor
 
         public void SaveBin(string path)
         {
+            string filename = path.Substring(path.LastIndexOf("\\"));
+            string pathWithoutFile = path.Replace(filename,"");
             int[] pointers = generatePointersTxt();
             // Contamos la longitud del fichero hasta el inicio de punteros
             int length = 12;
@@ -93,7 +96,7 @@ namespace DW2_Extractor
                     fw.WriteLine();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 fw.Close();
                 File.Delete(path);

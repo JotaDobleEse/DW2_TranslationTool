@@ -9,6 +9,7 @@ namespace DW2_Extractor
 {
     public class ItemData
     {
+        public const string COMMAND = "psx-mode2.exe {0} \\AAA\\4.AAA\\DUNG\\MESS\\ITEMDATA.BIN ITEMDATA.BIN\r\nPAUSE";
         private List<string> Items;
         private List<byte[]> BlocksFile;
         private List<long> PointersPreData;

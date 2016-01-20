@@ -14,6 +14,7 @@ namespace DW2_Extractor
     public partial class DW2_Extractor : Form
     {
         public TableReader Table { get; set; }
+        public string FilenameBin { get; set; }
         public DW2_Extractor()
         {
             InitializeComponent();
@@ -31,6 +32,7 @@ namespace DW2_Extractor
             openFileDialog1.Filter = "Binary file|*.BIN|Todos los ficheros|*.*";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                FilenameBin = openFileDialog1.FileName.Substring(openFileDialog1.FileName.LastIndexOf("\\")+1);
                 Dialog = DungMess.OpenBin(openFileDialog1.FileName, Table);
                 openTxtMess.Enabled = true;
                 saveTxtMess.Enabled = true;
@@ -55,6 +57,15 @@ namespace DW2_Extractor
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 Dialog.SaveBin(saveFileDialog1.FileName);
+                try
+                {
+                    string filename = saveFileDialog1.FileName.Substring(saveFileDialog1.FileName.LastIndexOf("\\")+1);
+                    string pathWithoutFile = saveFileDialog1.FileName.Replace(filename, "");
+                    File.WriteAllText(pathWithoutFile + "reinsert_" + FilenameBin.Replace(".BIN", ".bat"), string.Format(DungMess.COMMAND, FilenameBin, filename, dw2Name.Text));
+                } catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 
@@ -80,10 +91,57 @@ namespace DW2_Extractor
                 }
             }
         }
+
+        private void generateAllBinDungMess_Click(object sender, EventArgs e)
+        {
+            string[] binSrcFiles, txtFiles;
+            string binDstFolder = "";
+            MessageBox.Show("Select BIN source folder");
+            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                binSrcFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "MESS*.BIN", SearchOption.TopDirectoryOnly);
+            }
+            else
+                return;
+            MessageBox.Show("Select TXT source folder");
+            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "MESS*.txt", SearchOption.TopDirectoryOnly);
+            }
+            else
+                return;
+            MessageBox.Show("Select BIN destination folder");
+            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                binDstFolder = folderBrowserDialog1.SelectedPath;
+            }
+
+            binSrcFiles = binSrcFiles.Where(w => txtFiles.Any(a => a.Contains(w.Substring(w.LastIndexOf('\\') + 1, w.LastIndexOf('.') - w.LastIndexOf('\\'))))).ToArray();
+
+            List<string> commands = new List<string>();
+            foreach (string file in binSrcFiles)
+            {
+                DungMess mess = DungMess.OpenBin(file, Table);
+                string binFile = file.Substring(file.LastIndexOf('\\'), file.Length - file.LastIndexOf('\\'));
+                string txtFile = txtFiles.First(a => a.Contains(file.Substring(file.LastIndexOf('\\') + 1, file.LastIndexOf('.') - file.LastIndexOf('\\'))));
+                mess.OpenTxt(txtFile);
+                mess.SaveBin(binDstFolder + binFile);
+                commands.Add(string.Format(DungMess.COMMAND, binFile, txtFile.Substring(file.LastIndexOf('\\') + 1, file.LastIndexOf('.') - file.LastIndexOf('\\')), dw2Name.Text));
+            }
+
+            try
+            {
+                File.WriteAllLines(binDstFolder + "reinsert_DUNG.bat", commands);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
         #endregion
 
         #region CITYMESS
-        public Mess CityDialog { get; set; }
+        public CityMess CityDialog { get; set; }
 
         private void openBinCityMess_Click(object sender, EventArgs e)
         {
@@ -91,7 +149,8 @@ namespace DW2_Extractor
             openFileDialog1.Filter = "Binary file|*.BIN|Todos los ficheros|*.*";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                CityDialog = Mess.OpenBin(openFileDialog1.FileName, Table);
+                FilenameBin = openFileDialog1.FileName.Substring(openFileDialog1.FileName.LastIndexOf("\\") + 1);
+                CityDialog = CityMess.OpenBin(openFileDialog1.FileName, Table);
                 openTxtCityMess.Enabled = true;
                 saveTxtCityMess.Enabled = true;
             }
@@ -115,6 +174,16 @@ namespace DW2_Extractor
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 CityDialog.SaveBin(saveFileDialog1.FileName);
+                try
+                {
+                    string filename = saveFileDialog1.FileName.Substring(saveFileDialog1.FileName.LastIndexOf("\\")+1);
+                    string pathWithoutFile = saveFileDialog1.FileName.Replace(filename, "");
+                    File.WriteAllText(pathWithoutFile + "reinsert_" + FilenameBin.Replace(".BIN", ".bat"), string.Format(CityMess.COMMAND, FilenameBin, filename, dw2Name.Text));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 
@@ -135,9 +204,63 @@ namespace DW2_Extractor
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "MESS*.BIN", SearchOption.TopDirectoryOnly);
                 foreach (string file in files)
                 {
-                    Mess mess = Mess.OpenBin(file, Table);
+                    CityMess mess = CityMess.OpenBin(file, Table);
                     mess.SaveTxt(file.Replace(".BIN", ".txt"));
                 }
+            }
+        }
+
+        private void generateAllBinCityMess_Click(object sender, EventArgs e)
+        {
+            string[] binSrcFiles, txtFiles;
+            string binDstFolder = "";
+            MessageBox.Show("Select BIN source folder");
+            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                binSrcFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "MESS*.BIN", SearchOption.TopDirectoryOnly);
+            }
+            else
+                return;
+            MessageBox.Show("Select TXT source folder");
+            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "MESS*.txt", SearchOption.TopDirectoryOnly);
+            }
+            else
+                return;
+            MessageBox.Show("Select BIN destination folder");
+            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                binDstFolder = folderBrowserDialog1.SelectedPath;
+            }
+
+            binSrcFiles = binSrcFiles.Where(w => txtFiles.Any(a => a.Contains(w.Substring(w.LastIndexOf('\\') + 1, w.LastIndexOf('.') - w.LastIndexOf('\\'))))).ToArray();
+
+            //foreach (string file in binSrcFiles)
+            //{
+            //    CityMess mess = CityMess.OpenBin(file, Table);
+            //    mess.OpenTxt(txtFiles.First(a => a.Contains(file.Substring(file.LastIndexOf('\\') + 1, file.LastIndexOf('.') - file.LastIndexOf('\\')))));
+            //    mess.SaveBin(binDstFolder + file.Substring(file.LastIndexOf('\\'), file.Length - file.LastIndexOf('\\')));
+            //}
+
+            List<string> commands = new List<string>();
+            foreach (string file in binSrcFiles)
+            {
+                CityMess mess = CityMess.OpenBin(file, Table);
+                string binFile = file.Substring(file.LastIndexOf('\\'), file.Length - file.LastIndexOf('\\'));
+                string txtFile = txtFiles.First(a => a.Contains(file.Substring(file.LastIndexOf('\\') + 1, file.LastIndexOf('.') - file.LastIndexOf('\\'))));
+                mess.OpenTxt(txtFile);
+                mess.SaveBin(binDstFolder + binFile);
+                commands.Add(string.Format(CityMess.COMMAND, binFile, txtFile.Substring(file.LastIndexOf('\\') + 1, file.LastIndexOf('.') - file.LastIndexOf('\\')), dw2Name));
+            }
+
+            try
+            {
+                File.WriteAllLines(binDstFolder + "reinsert_CITY.bat", commands);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
         #endregion
@@ -283,74 +406,6 @@ namespace DW2_Extractor
         private void helpSysMess_Click(object sender, EventArgs e)
         {
             MessageBox.Show("To extract file:\n\t- Open characters table\n\t- Open BIN file\n\t- Save TXT file\n\nTo create BIN file:\n\t- Open characters table\n\t- Open TXT file\n\t- Save BIN file", "Help SYSMESS.BIN file");
-        }
-
-        private void generateAllBinDungMess_Click(object sender, EventArgs e)
-        {
-            string[] binSrcFiles, txtFiles;
-            string binDstFolder = "";
-            MessageBox.Show("Select BIN source folder");
-            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                binSrcFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "MESS*.BIN", SearchOption.TopDirectoryOnly);
-            }
-            else
-                return;
-            MessageBox.Show("Select TXT source folder");
-            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "MESS*.txt", SearchOption.TopDirectoryOnly);
-            }
-            else
-                return;
-            MessageBox.Show("Select BIN destination folder");
-            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                binDstFolder = folderBrowserDialog1.SelectedPath;
-            }
-
-            binSrcFiles = binSrcFiles.Where(w => txtFiles.Any(a => a.Contains(w.Substring(w.LastIndexOf('\\') + 1, w.LastIndexOf('.') - w.LastIndexOf('\\'))))).ToArray();
-
-            foreach (string file in binSrcFiles)
-            {
-                DungMess mess = DungMess.OpenBin(file, Table);
-                mess.OpenTxt(txtFiles.First(a => a.Contains(file.Substring(file.LastIndexOf('\\') + 1, file.LastIndexOf('.') - file.LastIndexOf('\\')))));
-                mess.SaveBin(binDstFolder + file.Substring(file.LastIndexOf('\\'), file.Length - file.LastIndexOf('\\')));
-            }
-        }
-
-        private void generateAllBinCityMess_Click(object sender, EventArgs e)
-        {
-            string[] binSrcFiles, txtFiles;
-            string binDstFolder = "";
-            MessageBox.Show("Select BIN source folder");
-            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                binSrcFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "MESS*.BIN", SearchOption.TopDirectoryOnly);
-            }
-            else
-                return;
-            MessageBox.Show("Select TXT source folder");
-            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                txtFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "MESS*.txt", SearchOption.TopDirectoryOnly);
-            }
-            else
-                return;
-            MessageBox.Show("Select BIN destination folder");
-            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                binDstFolder = folderBrowserDialog1.SelectedPath;
-            }
-
-            binSrcFiles = binSrcFiles.Where(w => txtFiles.Any(a => a.Contains(w.Substring(w.LastIndexOf('\\') + 1, w.LastIndexOf('.') - w.LastIndexOf('\\'))))).ToArray();
-
-            foreach (string file in binSrcFiles)
-            {
-                Mess mess = Mess.OpenBin(file, Table);
-                mess.OpenTxt(txtFiles.First(a => a.Contains(file.Substring(file.LastIndexOf('\\') + 1, file.LastIndexOf('.') - file.LastIndexOf('\\')))));
-                mess.SaveBin(binDstFolder + file.Substring(file.LastIndexOf('\\'), file.Length - file.LastIndexOf('\\')));
-            }
         }
     }
 }
