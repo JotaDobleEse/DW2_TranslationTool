@@ -1,0 +1,10 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+/DW2_Extractor/.vs/DW2_Extractor/v15
+/DW2_Extractor/DW2_Extractor/bin
+/DW2_Extractor/DW2_Extractor/bin/Debug
+/DW2_Extractor/DW2_Extractor/bin/Release
+/DW2_Extractor/DW2_Extractor/obj/Debug
+/DW2_Extractor/DW2_Extractor/obj/Release
